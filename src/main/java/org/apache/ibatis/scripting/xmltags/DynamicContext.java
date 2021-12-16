@@ -38,12 +38,15 @@ public class DynamicContext {
         OgnlRuntime.setPropertyAccessor(ContextMap.class, new ContextAccessor());
     }
 
+    /** 记录上下文中的一些 KV 信息 */
     private final ContextMap bindings;
+    /** 用来记录解析之后的 sql 语句 */
     private final StringJoiner sqlBuilder = new StringJoiner(" ");
     private int uniqueNumber = 0;
 
     public DynamicContext(Configuration configuration, Object parameterObject) {
         if (parameterObject != null && !(parameterObject instanceof Map)) {
+            // 对于非 Map 类型的实参，
             MetaObject metaObject = configuration.newMetaObject(parameterObject);
             boolean existsTypeHandler = configuration.getTypeHandlerRegistry().hasTypeHandler(parameterObject.getClass());
             bindings = new ContextMap(metaObject, existsTypeHandler);

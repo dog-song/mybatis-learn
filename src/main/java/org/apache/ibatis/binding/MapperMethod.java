@@ -399,6 +399,10 @@ public class MapperMethod {
             return returnsOptional;
         }
 
+        /**
+         * 查找目标类型参数的下标位置
+         *
+         */
         private Integer getUniqueParamIndex(Method method, Class<?> paramType) {
             Integer index = null;
             final Class<?>[] argTypes = method.getParameterTypes();
